@@ -1,28 +1,19 @@
-"use server"
-import { DataInput } from "@/types";
+"use server";
 
-export const createPost = async (data: DataInput) => {
-    const postData = {
-        ...data,
-        userId: 1,
-    };
-
+export const deletePost = async (postId: number) => {
     try {
-        const response = await fetch(`${process.env.BACKEND_LINK}/posts`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postData),
+        const response = await fetch(`${process.env.BACKEND_LINK}/posts/${postId}`, {
+            method: "DELETE",
         });
 
         if (!response.ok) {
-            throw new Error("Failed to create post");
+            throw new Error(`Failed to delete post with ID: ${postId}`);
         }
 
-        const data = await response.json();
-        return data
+        console.log(`Post with ID: ${postId} deleted successfully`);
+        return true;
     } catch (error) {
         console.error("Error:", error);
+        return false;
     }
 };

@@ -1,11 +1,13 @@
 import { Button, Modal } from 'antd';
 import useModalAction from '@/hook/use-modal-action';
+import { deletePost } from '@/action/delete-post';
 
 interface IDeleteBtn {
     id: number;
+    onDetele: (postId: number) => void
 }
 
-const DeleteBtn = ({ id }: IDeleteBtn) => {
+const DeleteBtn = ({ id, onDetele }: IDeleteBtn) => {
     const {
         isModalOpen,
         showModal,
@@ -14,8 +16,15 @@ const DeleteBtn = ({ id }: IDeleteBtn) => {
     } = useModalAction();
 
     const handleDelete = async (id: number) => {
-        console.log('Post deleted:', id);
-        closeModal();
+        try {
+            const res = await deletePost(id);
+            if(res) {
+                onDetele(id);
+                closeModal();
+            }
+        } catch (error) {
+            console.error("Error adding post:", error);
+        }
     };
 
     const handleOk = () => {

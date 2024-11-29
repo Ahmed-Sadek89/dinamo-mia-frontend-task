@@ -10,7 +10,6 @@ export const getPosts = async (): Promise<Post[] | undefined> => {
             headers: {
                 "Content-Type": "Application/json"
             },
-            cache: "no-store"
         })
 
         const posts = await response.json();

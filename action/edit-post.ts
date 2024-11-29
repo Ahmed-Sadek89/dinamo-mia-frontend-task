@@ -1,18 +1,15 @@
+"use server"
 import { DataInput } from "@/types";
 
-export const updatePost = async (postId: number, data:DataInput) => {
-    const updatedData = {
-        ...data,
-        userId: 1,
-    };
-
+export const updatePost = async (postId: number, body: DataInput) => {
+    console.log({postId, body})
     try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+        const response = await fetch(`${process.env.BACKEND_LINK}/posts/${postId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(updatedData),
+            body: JSON.stringify(body),
         });
 
         if (!response.ok) {

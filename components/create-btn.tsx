@@ -14,19 +14,20 @@ const CreateBtn = ({ posts, onNewPost }: { posts: Post[] | undefined, onNewPost:
     } = useModalAction()
 
     const handleAdd = async (values: DataInput) => {
-        await createPost(values)
-            .then((res) => {
-                const newPost = {
-                    ...res,
-                    id: posts ? posts.length + 1 : 1
-                };
-                onNewPost(newPost); // Notify parent to add the new post
-            })
-            .then(() => {
-                closeModal();
-                form.resetFields();
-            }).catch(error => console.error(error));
+        try {
+            const res = await createPost(values);
+            const newPost = {
+                ...res,
+                id: posts ? posts.length + 1 : 1,
+            };
+            onNewPost(newPost);
+            closeModal();
+            form.resetFields();
+        } catch (error) {
+            console.error("Error adding post:", error);
+        }
     };
+
 
     return (
         <>

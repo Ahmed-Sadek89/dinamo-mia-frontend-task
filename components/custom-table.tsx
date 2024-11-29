@@ -15,10 +15,11 @@ const CustomTable = ({ data }: ICustomTable) => {
     const {
         pageSize,
         handlePageSize,
-        handleSearchText,
         filteredData,
         updatedColumns,
         handleAddNewPost,
+        handleUpdateRow,
+        handleDeleteRow
     } = useCustomTableAction(data);
 
     const actionColumn = {
@@ -27,8 +28,8 @@ const CustomTable = ({ data }: ICustomTable) => {
         width: 100,
         render: (_: undefined, record: Post) => (
             <Space size="middle">
-                <UpdateBtn data={record} />
-                <DeleteBtn id={record.id} />
+                <UpdateBtn data={record} onUpdate={handleUpdateRow} />
+                <DeleteBtn id={record.id} onDetele={handleDeleteRow}/>
             </Space>
         ),
     }
@@ -43,7 +44,6 @@ const CustomTable = ({ data }: ICustomTable) => {
                 <TableControl
                     pageSize={pageSize}
                     handlePageSize={handlePageSize}
-                    handleSearchText={handleSearchText}
                     count={filteredData?.length}
                 />
             </div>

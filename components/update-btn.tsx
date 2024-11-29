@@ -2,12 +2,14 @@ import { Button } from 'antd';
 import { DataInput, Post } from '@/types';
 import ModalForm from './modal-form';
 import useModalAction from '@/hook/use-modal-action';
+import { updatePost } from '@/action/edit-post';
 
 interface IUpdateBtn {
-    data: Post
+    data: Post,
+    onUpdate: (updatedPost: Post) => void;
 }
 
-const UpdateBtn = ({ data }: IUpdateBtn) => {
+const UpdateBtn = ({ data, onUpdate }: IUpdateBtn) => {
     const {
         isModalOpen,
         form,
@@ -17,9 +19,14 @@ const UpdateBtn = ({ data }: IUpdateBtn) => {
     } = useModalAction()
 
     const handleUpdate = async (values: DataInput) => {
-        console.log('Form updated:', values);
-        closeModal();
-        form.resetFields();
+        try {
+            const updatedPost = await updatePost(data.id, values);
+            onUpdate(updatedPost); 
+            closeModal();
+            form.resetFields();
+        } catch (error) {
+            console.error("Update failed:", error);
+        }
     };
 
     return (
