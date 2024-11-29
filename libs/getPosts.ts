@@ -1,5 +1,6 @@
 "use server";
 import { Post } from "@/types";
+import { revalidatePath } from "next/cache";
 
 export const getPosts = async (): Promise<Post[] | undefined> => {
     try {
@@ -9,6 +10,7 @@ export const getPosts = async (): Promise<Post[] | undefined> => {
             headers: {
                 "Content-Type": "Application/json"
             },
+            cache: "no-store"
         })
 
         const posts = await response.json();
@@ -18,4 +20,5 @@ export const getPosts = async (): Promise<Post[] | undefined> => {
     } catch (error) {
         console.error("Unexpected error:", error);
     }
+    revalidatePath("/")
 };

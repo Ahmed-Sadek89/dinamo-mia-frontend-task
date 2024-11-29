@@ -6,10 +6,11 @@ const { Search } = Input;
 interface ITableControl {
     pageSize: number,
     handlePageSize: (page: number) => void,
-    handleSearchText: (text: string) => void
+    handleSearchText: (text: string) => void,
+    count: number | undefined
 }
 
-const TableControl = ({ pageSize, handlePageSize, handleSearchText }: ITableControl) => {
+const TableControl = ({ pageSize, handlePageSize, handleSearchText,count }: ITableControl) => {
 
     return (
         <div style={{ display: 'flex', gap: "15px", alignItems: "center", flexWrap: "wrap" }}>
@@ -25,6 +26,7 @@ const TableControl = ({ pageSize, handlePageSize, handleSearchText }: ITableCont
                     <Option value={20}>20</Option>
                 </Select>
             </div>
+            <h3 style={{margin: 0}}>Total: {count}</h3>
             <div>
                 <Search
                     placeholder="Search by title or body"

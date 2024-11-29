@@ -7,6 +7,7 @@ interface IDeleteBtn {
 
 const DeleteBtn = ({ id }: IDeleteBtn) => {
     const {
+        isModalOpen,
         showModal,
         closeModal,
         handleCancel
@@ -28,10 +29,11 @@ const DeleteBtn = ({ id }: IDeleteBtn) => {
             </Button>
             <Modal
                 title={`Are you sure to delete post number ${id}?`}
+                open={isModalOpen}
                 onOk={handleOk}
-                onCancel={handleCancel} 
-                okText="Yes"
+                onCancel={handleCancel}
                 maskClosable={false}
+                okText="Yes"
                 cancelText="No"
                 okButtonProps={{ danger: true }}
             >

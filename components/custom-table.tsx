@@ -1,32 +1,54 @@
 "use client";
-import { Table } from "antd";
+import { Table, Space } from "antd";
 import { Post } from "@/types";
 import TableControl from "./table-control";
 import useCustomTableAction from "@/hook/use-custom-table-action";
 import CreateBtn from "./create-btn";
+import UpdateBtn from "./update-btn";
+import DeleteBtn from "./delete-btn";
 
 interface ICustomTable {
     data: Post[] | undefined;
 }
 
 const CustomTable = ({ data }: ICustomTable) => {
-    
     const {
         pageSize,
         handlePageSize,
         handleSearchText,
         filteredData,
-        updatedColumns
+        updatedColumns,
+        handleAddNewPost,
     } = useCustomTableAction(data);
+
+    const actionColumn = {
+        title: "Actions",
+        key: "actions",
+        width: 100,
+        render: (_: undefined, record: Post) => (
+            <Space size="middle">
+                <UpdateBtn data={record} />
+                <DeleteBtn id={record.id} />
+            </Space>
+        ),
+    }
+
+    const columnsWithActions = [...updatedColumns, actionColumn];
+
 
     return (
         <div style={{ display: 'flex', flexDirection: "column", gap: "20px", marginTop: "40px" }}>
             <div style={{ display: 'flex', width: "100%", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
-                <CreateBtn />
-                <TableControl pageSize={pageSize} handlePageSize={handlePageSize} handleSearchText={handleSearchText} />
+                <CreateBtn posts={filteredData} onNewPost={handleAddNewPost} />
+                <TableControl
+                    pageSize={pageSize}
+                    handlePageSize={handlePageSize}
+                    handleSearchText={handleSearchText}
+                    count={filteredData?.length}
+                />
             </div>
             <Table
-                columns={updatedColumns}
+                columns={columnsWithActions}
                 dataSource={filteredData}
                 rowKey="id"
                 pagination={{

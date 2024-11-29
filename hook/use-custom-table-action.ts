@@ -14,11 +14,15 @@ const useCustomTableAction = (data: Post[] | undefined) => {
     const handleSearchText = (text: string) => {
         setSearchText(text)
     }
-    const filteredData = data?.filter((item) =>
+    const initialFilteredData = data?.filter((item) =>
         item.title.toLowerCase().includes(searchText.toLowerCase()) ||
         item.body.toLowerCase().includes(searchText.toLowerCase())
     );
+    const [filteredData, setFilteredData] = useState<Post[]>(initialFilteredData || []);
 
+    const handleAddNewPost = (newPost: Post) => {
+        setFilteredData((prevData) => [...prevData, newPost]);
+    };
     function isColumnWithDataIndex(col: ColumnGroupType<Post> | ColumnType<Post>): col is ColumnType<Post> {
         return (col as ColumnType<Post>).dataIndex !== undefined;
     }
@@ -46,7 +50,8 @@ const useCustomTableAction = (data: Post[] | undefined) => {
         handlePageSize,
         handleSearchText,
         filteredData,
-        updatedColumns
+        updatedColumns,
+        handleAddNewPost
     }
 }
 

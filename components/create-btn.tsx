@@ -1,9 +1,10 @@
 import { Button } from 'antd';
-import { DataInput } from '@/types';
+import { DataInput, Post } from '@/types';
 import ModalForm from './modal-form';
 import useModalAction from '@/hook/use-modal-action';
+import { createPost } from '@/action/create-post';
 
-const CreateBtn = () => {
+const CreateBtn = ({ posts, onNewPost }: { posts: Post[] | undefined, onNewPost: (newPost: Post) => void }) => {
     const {
         isModalOpen,
         form,
@@ -13,9 +14,18 @@ const CreateBtn = () => {
     } = useModalAction()
 
     const handleAdd = async (values: DataInput) => {
-        console.log('Form created:', values);
-        closeModal();
-        form.resetFields();
+        await createPost(values)
+            .then((res) => {
+                const newPost = {
+                    ...res,
+                    id: posts ? posts.length + 1 : 1
+                };
+                onNewPost(newPost); // Notify parent to add the new post
+            })
+            .then(() => {
+                closeModal();
+                form.resetFields();
+            }).catch(error => console.error(error));
     };
 
     return (
@@ -31,7 +41,7 @@ const CreateBtn = () => {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 handleSubmit={handleAdd}
-                modalTitle={`Add  a new Post`}
+                modalTitle={`Add a new Post`}
             />
         </>
     );
