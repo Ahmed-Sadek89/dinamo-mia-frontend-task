@@ -71,11 +71,14 @@ Ensure you have the following installed on your machine:
 - **Node.js** (v16.x or higher)
 - **npm** or **yarn** for managing packages
 
-### Installation
+### Installation and Run in development mode
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/dinamo-mia-frontend-task.git
    cd dinamo-mia-frontend-task
+   npm install or yarn install
    create .env file and put BACKEND_LINK=https://jsonplaceholder.typicode.com/
-    npm install or yarn install
+   npm run dev or yarn dev 
+   open http://localhost:3000/
+
