@@ -1,8 +1,13 @@
 # React Developer Technical Assignment - Dinamo
 
 ## Live and Repo URL
-**Live** https://dinamo-mia-frontend-task.vercel.app/
-**Repo** https://github.com/Ahmed-Sadek89/dinamo-mia-frontend-task
+- **Live** https://dinamo-mia-frontend-task.vercel.app/
+- **Repo** https://github.com/Ahmed-Sadek89/dinamo-mia-frontend-task
+
+## Project Duration
+- **Start** 11/28/2024 at 7.00 PM
+- **Start** 11/29/2024 at 8.00 PM
+- **Total hours per day** 5 hours
 
 ## Overview
 
