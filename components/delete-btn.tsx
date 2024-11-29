@@ -1,6 +1,7 @@
-import { Button,  Modal, notification } from 'antd';
+import { Button, Modal } from 'antd';
 import useModalAction from '@/hook/use-modal-action';
 import { deletePost } from '@/action/delete-post';
+import { makeNotfication } from '@/utils/make-notification';
 
 interface IDeleteBtn {
     id: number;
@@ -21,13 +22,9 @@ const DeleteBtn = ({ id, onDetele }: IDeleteBtn) => {
             if (res) {
                 onDetele(id);
                 closeModal();
+                makeNotfication('success', `Deleting post number ${id} success!`)
             } else {
-                notification.error({
-                    message: `Deleting post number ${id} failed!`,
-                    description: 'You cannot update/delete posts you created !',
-                    placement: 'topRight',
-                    duration: 3
-                });
+                makeNotfication('error', `Deleting post number ${id} failed!`, true)
             }
         } catch (error) {
             console.error("Error adding post:", error);

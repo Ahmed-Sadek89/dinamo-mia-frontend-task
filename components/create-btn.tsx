@@ -1,8 +1,9 @@
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import { DataInput, Post } from '@/types';
 import ModalForm from './modal-form';
 import useModalAction from '@/hook/use-modal-action';
 import { createPost } from '@/action/create-post';
+import { makeNotfication } from '@/utils/make-notification';
 
 const CreateBtn = ({ posts, onNewPost }: { posts: Post[] | undefined, onNewPost: (newPost: Post) => void }) => {
     const {
@@ -24,8 +25,9 @@ const CreateBtn = ({ posts, onNewPost }: { posts: Post[] | undefined, onNewPost:
                 onNewPost(newPost);
                 closeModal();
                 form.resetFields();
+                makeNotfication('success', `Creating a new post success!`)
             } else {
-                message.error("Creating post failed!", 3);
+                makeNotfication('error', `Creating a new post failed!`)
             }
         } catch (error) {
             console.error(`Creating post failed! ${error}`)
