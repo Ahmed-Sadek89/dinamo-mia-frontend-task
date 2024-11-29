@@ -1,12 +1,14 @@
 # React Developer Technical Assignment - Dinamo
 
+## Live and Repo URL
+**Live** https://dinamo-mia-frontend-task.vercel.app/
+**Repo** https://github.com/Ahmed-Sadek89/dinamo-mia-frontend-task
+
 ## Overview
 
 This project is a technical assignment for the React Developer position at Dinamo. The goal of this project was to demonstrate my skills in front-end development using **Next.js 14**, **TypeScript**, and **Ant Design**. The application interacts with the **JSONPlaceholder API** to fetch and manipulate data, with error handling and a user-friendly interface.
 
 ## Objectives
-
-### Core Tasks (Must-Have)
 
 1. **Fetch and Display Data**:
    - Fetched data from the `/posts` endpoint of the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/).
@@ -25,35 +27,35 @@ This project is a technical assignment for the React Developer position at Dinam
    - Defined TypeScript **interfaces/types** for the data fetched from the API.
    - Ensured the code is **type-safe** and followed best practices for clean, maintainable code.
 
-### Optional Tasks (Bonus)
 
-1. **Form for Updating Data**:
+5. **Form for Updating Data**:
    - Added an **Edit button** for each row in the table.
    - Clicking the button opens a form pre-filled with the selected post’s title and body.
    - On form submission, made a **PUT request** to `/posts/{id}` to simulate updating the post.
 
-2. **Delete Data**:
+6. **Delete Data**:
    - Added a **Delete button** for each row in the table.
    - Clicking the button sends a **DELETE request** to `/posts/{id}` to simulate deleting the post.
 
-3. **Server-Side Rendering (SSR)**:
+7. **Server-Side Rendering (SSR)**:
    - Implemented **Server-Side Rendering** using **Next.js 14** to improve performance and SEO.
    - This was an optional task, but I included it as an enhancement to demonstrate my skills in SSR with Next.js.
 
 ## Features
-
-- **Responsive Design** using **Ant Design**'s grid and table components.
+- **responsive design** using table AntDesign and flexbox css.
+- **using Ant Design** table,select input, pagination, Notification, Form, Modal and Button components.
 - **Type-safe** development with **TypeScript** to ensure reliable and maintainable code.
 - **User-friendly** form for adding, editing, and deleting posts.
-- **Error Handling**: Graceful error messages with **Ant Design notifications** for a smooth user experience.
+- **Error Handling**: with **Ant Design notifications** and **Routing error handling**  for a smooth user experience.
 
 ## Technologies Used
 
 - **Next.js 14**: Framework for building the application with SSR (Server-Side Rendering).
 - **TypeScript**: For type-safe development.
 - **Ant Design**: UI framework for building components like tables, forms, buttons, and notifications.
+
+## API
 - **JSONPlaceholder API**: Public API used to fetch data for posts and simulate CRUD operations (create, read, update, delete).
-- **Axios**: For handling HTTP requests.
 
 ## Setup and Installation
 
@@ -68,4 +70,7 @@ Ensure you have the following installed on your machine:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repository-name.git
+   git clone https://github.com/your-username/dinamo-mia-frontend-task.git
+   cd dinamo-mia-frontend-task
+   create .env file and put BACKEND_LINK=https://jsonplaceholder.typicode.com/
+    npm install or yarn install
