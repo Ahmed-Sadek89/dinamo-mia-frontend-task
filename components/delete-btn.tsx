@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd';
+import { Button,  Modal, notification } from 'antd';
 import useModalAction from '@/hook/use-modal-action';
 import { deletePost } from '@/action/delete-post';
 
@@ -18,9 +18,16 @@ const DeleteBtn = ({ id, onDetele }: IDeleteBtn) => {
     const handleDelete = async (id: number) => {
         try {
             const res = await deletePost(id);
-            if(res) {
+            if (res) {
                 onDetele(id);
                 closeModal();
+            } else {
+                notification.error({
+                    message: `Deleting post number ${id} failed!`,
+                    description: 'You cannot update/delete posts you created !',
+                    placement: 'topRight',
+                    duration: 3
+                });
             }
         } catch (error) {
             console.error("Error adding post:", error);

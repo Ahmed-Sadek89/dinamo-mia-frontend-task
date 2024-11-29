@@ -1,6 +1,5 @@
 "use server";
 import { Post } from "@/types";
-import { revalidatePath } from "next/cache";
 
 export const getPosts = async (): Promise<Post[] | undefined> => {
     try {
@@ -17,7 +16,6 @@ export const getPosts = async (): Promise<Post[] | undefined> => {
         return posts;
         
     } catch (error) {
-        console.error("Unexpected error:", error);
+        throw new Error(`Unexpected error: ${error}`);
     }
-    revalidatePath("/")
 };

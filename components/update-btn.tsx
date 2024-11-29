@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import { DataInput, Post } from '@/types';
 import ModalForm from './modal-form';
 import useModalAction from '@/hook/use-modal-action';
@@ -21,9 +21,18 @@ const UpdateBtn = ({ data, onUpdate }: IUpdateBtn) => {
     const handleUpdate = async (values: DataInput) => {
         try {
             const updatedPost = await updatePost(data.id, values);
-            onUpdate(updatedPost); 
-            closeModal();
-            form.resetFields();
+            if (updatedPost) {
+                onUpdate(updatedPost);
+                closeModal();
+                form.resetFields();
+            } else {
+                notification.error({
+                    message: `Updating post number ${data.id} failed!`,
+                    description: 'You cannot update/delete posts you created !',
+                    placement: 'topRight',
+                    duration: 3
+                });
+            }
         } catch (error) {
             console.error("Update failed:", error);
         }

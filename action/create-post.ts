@@ -19,10 +19,9 @@ export const createPost = async (data: DataInput) => {
         if (!response.ok) {
             throw new Error("Failed to create post");
         }
-
         const data = await response.json();
         return data
     } catch (error) {
-        console.error("Error:", error);
+        console.error(`Unexpected error: ${error}`)
     }
 };

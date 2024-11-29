@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { DataInput, Post } from '@/types';
 import ModalForm from './modal-form';
 import useModalAction from '@/hook/use-modal-action';
@@ -16,15 +16,19 @@ const CreateBtn = ({ posts, onNewPost }: { posts: Post[] | undefined, onNewPost:
     const handleAdd = async (values: DataInput) => {
         try {
             const res = await createPost(values);
-            const newPost = {
-                ...res,
-                id: posts ? posts.length + 1 : 1,
-            };
-            onNewPost(newPost);
-            closeModal();
-            form.resetFields();
+            if (res) {
+                const newPost = {
+                    ...res,
+                    id: posts ? posts.length + 1 : 1,
+                };
+                onNewPost(newPost);
+                closeModal();
+                form.resetFields();
+            } else {
+                message.error("Creating post failed!", 3);
+            }
         } catch (error) {
-            console.error("Error adding post:", error);
+            console.error(`Creating post failed! ${error}`)
         }
     };
 

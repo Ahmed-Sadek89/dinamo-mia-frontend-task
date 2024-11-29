@@ -1,19 +1,21 @@
 "use server";
 
+import { checkExistedPost } from "./check-existed-post";
+
 export const deletePost = async (postId: number) => {
     try {
-        const response = await fetch(`${process.env.BACKEND_LINK}/posts/${postId}`, {
-            method: "DELETE",
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to delete post with ID: ${postId}`);
+        const existedPost = await checkExistedPost(postId);
+        if (existedPost) {
+            const response = await fetch(`${process.env.BACKEND_LINK}/posts/${postId}`, {
+                method: "DELETE",
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Failed to delete post with ID: ${postId}`);
+            }
+            return true;
         }
-
-        console.log(`Post with ID: ${postId} deleted successfully`);
-        return true;
     } catch (error) {
-        console.error("Error:", error);
-        return false;
+        console.error(`Unexpected error: ${error}`)
     }
 };

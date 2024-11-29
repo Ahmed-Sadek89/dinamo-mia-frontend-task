@@ -1,13 +1,22 @@
 "use client";
 
+import { Spin } from "antd";
+import React from "react";
+
 const Loading = () => {
   return (
-    <div className="flex justify-center items-center w-full h-screen container">
-      <div className="flex flex-col justify-center items-center w-full">
-        <div className="border-4 border-main border-t-transparent border-dotted rounded-full w-20 h-20 animate-spin"></div>
-      </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#f0f2f5",
+      }}
+    >
+      <Spin size="large" tip="Loading..." />
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;
