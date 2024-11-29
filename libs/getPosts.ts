@@ -1,5 +1,4 @@
 "use server";
-
 import { Post } from "@/types";
 
 export const getPosts = async (): Promise<Post[] | undefined> => {
@@ -9,7 +8,7 @@ export const getPosts = async (): Promise<Post[] | undefined> => {
             method: "GET",
             headers: {
                 "Content-Type": "Application/json"
-            }
+            },
         })
 
         const posts = await response.json();

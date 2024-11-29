@@ -1,57 +1,46 @@
 import React from 'react';
-import { Button, Space } from 'antd';
+import { Space } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Post } from '@/types';
+import UpdateBtn from '@/components/update-btn';
+import DeleteBtn from '@/components/delete-btn';
 
 export const columns: ColumnsType<Post> = [
     {
         title: 'ID',
         dataIndex: 'id',
         key: 'id',
-        width: 40, // Custom width for the ID column
+        width: 40,
         render: (text: number) => <span>{text}</span>,
     },
     {
         title: 'User ID',
         dataIndex: 'userId',
         key: 'userId',
-        width: 40, // Custom width for the User ID column
+        width: 40,
         render: (text: number) => <span>{text}</span>,
     },
     {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        width: 60, // Custom width for the Title column
+        width: 200,
     },
     {
         title: 'Body',
         dataIndex: 'body',
         key: 'body',
-        width: 100, // Custom width for the Body column
+        width: 300,
     },
     {
         title: 'Action',
         key: 'action',
-        width: 100, // Custom width for the Action column
+        width: 100,
         render: (_, record) => (
             <Space size="middle">
-                <Button type="primary" onClick={() => handleUpdate(record)}>
-                    Update
-                </Button>
-                <Button type="default" danger onClick={() => handleDelete(record)}>
-                    Delete
-                </Button>
+                <UpdateBtn data={record}/>
+                <DeleteBtn id={record.id} /> 
             </Space>
         ),
     },
 ];
-
-// Define handlers for update and delete actions
-const handleUpdate = (record: Post) => {
-    console.log('Update record:', record);
-};
-
-const handleDelete = (record: Post) => {
-    console.log('Delete record:', record);
-};

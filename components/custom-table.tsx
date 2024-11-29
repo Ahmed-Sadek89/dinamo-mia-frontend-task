@@ -1,69 +1,41 @@
 "use client";
-
-import React, { useState } from "react";
-import { Table, Select, Input } from "antd";
-import { columns } from "@/utils/custom-table-columns";
+import { Table } from "antd";
 import { Post } from "@/types";
-
-const { Option } = Select;
-const { Search } = Input;
+import TableControl from "./table-control";
+import useCustomTableAction from "@/hook/use-custom-table-action";
+import CreateBtn from "./create-btn";
 
 interface ICustomTable {
     data: Post[] | undefined;
 }
 
 const CustomTable = ({ data }: ICustomTable) => {
-    const [pageSize, setPageSize] = useState(5);
-    const [searchText, setSearchText] = useState("");
-
-    // Filter data based on search text
-    const filteredData = data?.filter((item) =>
-        item.title.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.body.toLowerCase().includes(searchText.toLowerCase())
-    );
+    
+    const {
+        pageSize,
+        handlePageSize,
+        handleSearchText,
+        filteredData,
+        updatedColumns
+    } = useCustomTableAction(data);
 
     return (
-        <div>
-            <div style={{ marginBottom: 16 }}>
-                <Search
-                    placeholder="Search by title or body"
-                    onChange={(e) => setSearchText(e.target.value)}
-                    enterButton
-                />
+        <div style={{ display: 'flex', flexDirection: "column", gap: "20px", marginTop: "40px" }}>
+            <div style={{ display: 'flex', width: "100%", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
+                <CreateBtn />
+                <TableControl pageSize={pageSize} handlePageSize={handlePageSize} handleSearchText={handleSearchText} />
             </div>
-
             <Table
-                columns={columns}
+                columns={updatedColumns}
                 dataSource={filteredData}
-                rowKey="id" // Set unique key for each row
+                rowKey="id"
                 pagination={{
                     pageSize,
                     showSizeChanger: false,
                 }}
-                footer={() => (
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            width: "100%",
-                        }}
-                    >
-                        <div></div>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <span style={{ marginRight: 8 }}>Rows per page:</span>
-                            <Select
-                                defaultValue={pageSize}
-                                style={{ width: 80 }}
-                                onChange={(value) => setPageSize(value)}
-                            >
-                                <Option value={5}>5</Option>
-                                <Option value={10}>10</Option>
-                                <Option value={20}>20</Option>
-                            </Select>
-                        </div>
-                    </div>
-                )}
+                scroll={{ x: "max-content" }}
+                bordered
+                size="middle"
             />
         </div>
     );
